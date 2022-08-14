@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mecar_app/blocs/themes_blocs/themes_bloc.dart';
+import 'package:mecar_app/constants/image_assets.dart';
 import 'package:mecar_app/screens/sign_up_phone_screen/sign_up_phone_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:mecar_app/themes/app_themes.dart';
@@ -13,44 +14,126 @@ class LoginScreen extends StatelessWidget {
     return BlocBuilder<ThemesBloc, ThemesState>(
       builder: (context, state) {
         final themeBloc = BlocProvider.of<ThemesBloc>(context);
-        var theme = Theme.of(context).colorScheme;
-        return Container(
-            color: theme.success,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'LoginScreen',
-                  style: TextStyle(color: Theme.of(context).primaryColor),
+        final widthOfButton = MediaQuery.of(context).size.width * 0.9;
+        var theme = Theme.of(context);
+        return Scaffold(
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Stack(
+                children: [
+                  SizedBox(
+                      height: 400,
+                      child: Image.asset(BACKGROUND_CAR_IMG, fit: BoxFit.fill)),
+                  Container(
+                    height: 400,
+                    decoration: const BoxDecoration(
+                      color: Color(0x400F1317),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 62,
+                    left: 42,
+                    // padding: const EdgeInsets.symmetric(horizontal: 42),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text('Welcome',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 28,
+                                fontWeight: FontWeight.w600)),
+                        SizedBox(height: 5),
+                        Text(
+                            'You’re only a few step away from \n joining MeCar',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400))
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                      bottom: 20,
+                      left: 20,
+                      right: 20,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          for (int i = 0; i < 4; ++i)
+                            Container(
+                              height: 1,
+                              width: 19,
+                              margin: const EdgeInsets.only(right: 6),
+                              color: const Color(0xFF979797),
+                            )
+                        ],
+                      ))
+                ],
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SignUpPhoneScreen()),
+                  );
+                },
+                child: Container(
+                  height: 50,
+                  width: widthOfButton,
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                        color: theme.primaryColor,
+                        width: 1.0,
+                      ),
+                      borderRadius: const BorderRadius.all(Radius.circular(2))),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SizedBox(height: 17, child: Image.asset(MAIL_IMG)),
+                        const Text(
+                          'Login with Email/Phone',
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w400),
+                        ),
+                        const SizedBox(
+                          height: 17,
+                          width: 17,
+                        ),
+                      ]),
                 ),
-                const Text('Hello').tr(),
-                Text(state.themeMode.toString()),
-                TextButton(
-                    onPressed: () {
-                      print('ok');
-                      themeBloc.add(ToggleThemeEvent());
-                    },
-                    child: const Text('Toggle Dark mode')),
-                TextButton(
-                    onPressed: () {
-                      if (context.locale.toString() == 'vi') {
-                        context.setLocale(Locale('en'));
-                      } else {
-                        context.setLocale(Locale('vi'));
-                      }
-                    },
-                    child: const Text('Change language')),
-                TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SignUpPhoneScreen()),
-                      );
-                    },
-                    child: const Text('Navigate to SignUpPhoneScreen'))
-              ],
-            ));
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 30),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Don’t have account? ',
+                      style:
+                          TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
+                    ),
+                    InkWell(
+                      child: const Text(
+                        'Sign up',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 14),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SignUpPhoneScreen()),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
       },
     );
   }

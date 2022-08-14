@@ -1,3 +1,8 @@
 {
-    "Hello": "Hello"
+    "Hello": "Hello",
+    "welcome": "Welcome",
+    "login_with_": "Login with Email/Phone",
+    "subcription_login": "You’re only a few step away from \n joining MeCar",
+    "not_have_account": "Don’t have account? ",
+    "sign_up": "Sign up"
 }

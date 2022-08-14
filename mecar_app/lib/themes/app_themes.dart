@@ -5,9 +5,9 @@ var brightnesss = SchedulerBinding.instance.window.platformBrightness;
 
 class AppThemes {
   static final lightTheme = ThemeData(
-    backgroundColor: Colors.white,
+    backgroundColor: const Color(0xFFE5E5E5),
     colorScheme: const ColorScheme.light(),
-    primaryColor: Colors.blue,
+    primaryColor: const Color(0xFF0F1317),
   );
 
   static final darkTheme = ThemeData(
@@ -17,10 +17,4 @@ class AppThemes {
   );
 }
 
-extension TNColorScheme on ColorScheme {
-  Color get success =>
-      brightness == Brightness.dark ? Color(0xFF28a745) : Colors.amber;
-  Color get info => const Color(0xFF17a2b8);
-  Color get warning => const Color(0xFFffc107);
-  Color get danger => const Color(0xFFdc3545);
-}
+extension TNColorScheme on ColorScheme {}

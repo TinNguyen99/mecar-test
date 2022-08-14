@@ -1,3 +1,8 @@
 {
-    "Hello": "Xin Chào"
+    "Hello": "Xin Chào",
+    "welcome": "Chào mừng",
+    "login_with_": "Đăng nhập với Email/điện thoại",
+    "subcription_login": "Chỉ còn vài bước nữa là bạn có thể \n tham gia MeCar",
+    "not_have_account": "Bạn chưa có tài khoản? ",
+    "sign_up": "Đăng kí"
 }
