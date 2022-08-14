@@ -5,6 +5,7 @@ import 'package:mecar_app/constants/image_assets.dart';
 import 'package:mecar_app/screens/sign_up_phone_screen/sign_up_phone_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:mecar_app/themes/app_themes.dart';
+import 'package:mecar_app/widgets/button_widget.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -14,8 +15,14 @@ class LoginScreen extends StatelessWidget {
     return BlocBuilder<ThemesBloc, ThemesState>(
       builder: (context, state) {
         final themeBloc = BlocProvider.of<ThemesBloc>(context);
-        final widthOfButton = MediaQuery.of(context).size.width * 0.9;
         var theme = Theme.of(context);
+        void onClickToNatigate() {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const SignUpPhoneScreen()),
+          );
+        }
+
         return Scaffold(
           body: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -71,39 +78,10 @@ class LoginScreen extends StatelessWidget {
                       ))
                 ],
               ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const SignUpPhoneScreen()),
-                  );
-                },
-                child: Container(
-                  height: 50,
-                  width: widthOfButton,
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        color: theme.primaryColor,
-                        width: 1.0,
-                      ),
-                      borderRadius: const BorderRadius.all(Radius.circular(2))),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        SizedBox(height: 17, child: Image.asset(MAIL_IMG)),
-                        const Text(
-                          'Login with Email/Phone',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w400),
-                        ),
-                        const SizedBox(
-                          height: 17,
-                          width: 17,
-                        ),
-                      ]),
-                ),
-              ),
+              MecarButton(
+                  type: ButtonType.login,
+                  title: 'Login with Email/Phone',
+                  onClickFunction: onClickToNatigate),
               Padding(
                 padding: const EdgeInsets.only(bottom: 30),
                 child: Row(
