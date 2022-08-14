@@ -15,7 +15,7 @@ class LoginScreen extends StatelessWidget {
     return BlocBuilder<ThemesBloc, ThemesState>(
       builder: (context, state) {
         final themeBloc = BlocProvider.of<ThemesBloc>(context);
-        var theme = Theme.of(context);
+        final theme = Theme.of(context);
         void onClickToNatigate() {
           Navigator.push(
             context,
@@ -29,9 +29,7 @@ class LoginScreen extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  SizedBox(
-                      height: 400,
-                      child: Image.asset(BACKGROUND_CAR_IMG, fit: BoxFit.fill)),
+                  SizedBox(height: 400, child: Image.asset(BACKGROUND_CAR_IMG, fit: BoxFit.fill)),
                   Container(
                     height: 400,
                     decoration: const BoxDecoration(
@@ -44,18 +42,10 @@ class LoginScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
-                        Text('Welcome',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 28,
-                                fontWeight: FontWeight.w600)),
+                        Text('Welcome', style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.w600)),
                         SizedBox(height: 5),
-                        Text(
-                            'You’re only a few step away from \n joining MeCar',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400))
+                        Text('You’re only a few step away from \n joining MeCar',
+                            style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400))
                       ],
                     ),
                   ),
@@ -77,10 +67,7 @@ class LoginScreen extends StatelessWidget {
                       ))
                 ],
               ),
-              MecarButton(
-                  type: ButtonType.login,
-                  title: 'Login with Email/Phone',
-                  onClickFunction: onClickToNatigate),
+              MecarButton(type: ButtonType.login, title: 'Login with Email/Phone', onClickFunction: onClickToNatigate),
               Padding(
                 padding: const EdgeInsets.only(bottom: 30),
                 child: Row(
@@ -88,15 +75,13 @@ class LoginScreen extends StatelessWidget {
                   children: [
                     const Text(
                       'Don’t have account? ',
-                      style:
-                          TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
+                      style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
                     ),
                     InkWell(
                       onTap: onClickToNatigate,
                       child: const Text(
                         'Sign up',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 14),
+                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
                       ),
                     ),
                   ],
