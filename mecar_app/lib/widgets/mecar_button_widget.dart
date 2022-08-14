@@ -34,16 +34,22 @@ class MecarButton extends StatelessWidget {
             ),
             borderRadius: const BorderRadius.all(Radius.circular(2))),
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-          SizedBox(
-              height: 17,
-              child: Image.asset(
-                MAIL_IMG,
-                color: colorWhite,
-              )),
+          type == ButtonType.login
+              ? SizedBox(
+                  height: 17,
+                  child: Image.asset(
+                    MAIL_IMG,
+                    color: colorWhite,
+                  ))
+              : Container(),
           Text(
             title,
             style: TextStyle(
-                fontSize: 16, fontWeight: FontWeight.w400, color: colorWhite),
+                decoration:
+                    type == ButtonType.login ? TextDecoration.underline : null,
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: colorWhite),
           ),
           const SizedBox(
             height: 17,
