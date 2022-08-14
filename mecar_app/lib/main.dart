@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mecar_app/blocs/themes_blocs/themes_bloc.dart';
 import 'package:mecar_app/screens/login_screen/login_screen.dart';
 // import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:mecar_app/themes/app_themes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,20 +18,65 @@ void main() async {
       child: const MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+// class _MyAppState extends State<MyApp> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocBuilder<ThemesBloc, ThemesState>(
+//       builder: (context, state) {
+//         ThemeMode dartModeString = state.themeMode;
+//         return MaterialApp(
+//             title: 'Flutter Demo',
+//             // themeMode: dartModeString,
+//             theme: AppThemes.lightTheme,
+//             darkTheme: AppThemes.darkTheme,
+//             localizationsDelegates: context.localizationDelegates,
+//             supportedLocales: context.supportedLocales,
+//             locale: context.locale,
+//             home: MultiBlocProvider(
+//               providers: [
+//                 BlocProvider<ThemesBloc>(
+//                   create: (BuildContext context) => ThemesBloc(),
+//                 ),
+//               ],
+//               child: const LoginScreen(),
+//             ));
+//       },
+//     );
+//   }
+// }
+class _MyAppState extends State<MyApp> {
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ThemesBloc>(
+          create: (BuildContext context) => ThemesBloc(),
+        ),
+      ],
+      child: BlocBuilder<ThemesBloc, ThemesState>(
+        builder: (context, state) {
+          ThemeMode dartModeString = state.themeMode;
+          print(dartModeString);
+          print(ThemeMode.system);
+          return MaterialApp(
+            title: 'Flutter Demo',
+            themeMode: dartModeString,
+            theme: AppThemes.lightTheme,
+            darkTheme: AppThemes.darkTheme,
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            home: const LoginScreen(),
+          );
+        },
       ),
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      home: const LoginScreen(),
     );
   }
 }
