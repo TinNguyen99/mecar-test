@@ -3,15 +3,11 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class HeaderContent extends StatelessWidget {
-  const HeaderContent(
-      {Key? key, required this.title, required this.onClickFunction})
-      : super(key: key);
+  const HeaderContent({Key? key, required this.title, required this.onClickFunction}) : super(key: key);
 
   final String title;
   final VoidCallback onClickFunction;
-// () {
-//                             Navigator.pop(context);
-//                           }
+
   @override
   Widget build(BuildContext context) {
     return Column(

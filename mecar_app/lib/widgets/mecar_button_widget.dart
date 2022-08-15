@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mecar_app/constants/image_assets.dart';
+import 'package:mecar_app/themes/app_themes.dart';
 
-enum ButtonType { login, verify }
+enum ButtonType { login, verify, disableVerify }
 
 class MecarButton extends StatelessWidget {
-  const MecarButton(
-      {Key? key,
-      this.type = ButtonType.verify,
-      required this.title,
-      required this.onClickFunction})
-      : super(key: key);
+  const MecarButton({Key? key, this.type = ButtonType.verify, required this.title, required this.onClickFunction}) : super(key: key);
 
   final ButtonType? type;
   final String title;
@@ -39,14 +35,13 @@ class MecarButton extends StatelessWidget {
                   height: 17,
                   child: Image.asset(
                     MAIL_IMG,
-                    color: colorWhite,
+                    color: brightnesss == Brightness.light ? Colors.black : Colors.white,
                   ))
               : Container(),
           Text(
             title,
             style: TextStyle(
-                decoration:
-                    type == ButtonType.login ? TextDecoration.underline : null,
+                decoration: type == ButtonType.login ? TextDecoration.underline : null,
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
                 color: colorWhite),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mecar_app/blocs/themes_blocs/themes_bloc.dart';
+import 'package:mecar_app/blocs/user_info_blocs/user_info_bloc.dart';
 import 'package:mecar_app/screens/login_screen/login_screen.dart';
 // import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -12,8 +13,7 @@ void main() async {
 
   runApp(EasyLocalization(
       supportedLocales: [Locale('en'), Locale('vi')],
-      path:
-          'lib/assets/translations', // <-- change the path of the translation files
+      path: 'lib/assets/translations', // <-- change the path of the translation files
       fallbackLocale: Locale('en', 'US'),
       child: const MyApp()));
 }
@@ -59,17 +59,22 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<ThemesBloc>(
           create: (BuildContext context) => ThemesBloc(),
         ),
+        BlocProvider<UserInfoBloc>(
+          create: (BuildContext context) => UserInfoBloc(),
+        ),
       ],
       child: BlocBuilder<ThemesBloc, ThemesState>(
         builder: (context, state) {
           ThemeMode dartModeString = state.themeMode;
           print(dartModeString);
-          print(ThemeMode.system);
+
           return MaterialApp(
             title: 'Flutter Demo',
             themeMode: dartModeString,
-            theme: AppThemes.lightTheme,
-            darkTheme: AppThemes.darkTheme,
+            theme: AppThemes.darkTheme,
+            darkTheme: AppThemes.lightTheme,
+            // theme: AppThemes.lightTheme,
+            // darkTheme: AppThemes.darkTheme,
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,
