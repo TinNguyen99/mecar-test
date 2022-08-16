@@ -1,7 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mecar_app/blocs/user_info_blocs/user_info_bloc.dart';
+import 'package:mecar_app/constants/key_translate.dart';
 import 'package:mecar_app/screens/verification_screen/verification_screen.dart';
+import 'package:mecar_app/utils/validation_phone_vn.dart';
 import 'package:mecar_app/widgets/header_content_widget.dart';
 import 'package:mecar_app/widgets/mecar_button_widget.dart';
 import 'package:mecar_app/widgets/row_text_action_widget.dart';
@@ -15,6 +18,7 @@ class SignUpPhoneScreen extends StatefulWidget {
 
 class _SignUpPhoneScreenState extends State<SignUpPhoneScreen> {
   final textController = TextEditingController();
+  final int maxLengthOfPhoneNumber = 10;
   bool isValidPhoneNumber = true;
 
   @override
@@ -46,7 +50,7 @@ class _SignUpPhoneScreenState extends State<SignUpPhoneScreen> {
                       child: Column(
                         children: [
                           HeaderContent(
-                              title: 'Sign up',
+                              title: SIGN_UP_KEY.tr(),
                               onClickFunction: () {
                                 Navigator.pop(context);
                               }),
@@ -55,51 +59,60 @@ class _SignUpPhoneScreenState extends State<SignUpPhoneScreen> {
                               const SizedBox(height: 20),
                               RowTextAction(
                                   colorTextAction: TextActionColor.info,
-                                  textAction: 'terms of use',
-                                  title: 'By register, I agree to Autoo’s',
+                                  textAction: TERM_OF_USE_KEY.tr(),
+                                  title: BY_REGISTER_KEY.tr(),
                                   onClickFunction: () {}),
                               RowTextAction(
                                   colorTextAction: TextActionColor.info,
-                                  textAction: 'privacy policy',
-                                  title: '& acknowledge their',
+                                  textAction: PRICACY_POLICY_KEY.tr(),
+                                  title: ACKNOWLEDGE_THEIR_KEY.tr(),
                                   onClickFunction: () {}),
                               const SizedBox(height: 55),
                               Container(
-                                margin: const EdgeInsets.symmetric(horizontal: 20),
+                                width: maxWidth * 0.9,
                                 height: 50,
                                 child: TextFormField(
                                   controller: textController,
                                   keyboardType: TextInputType.number,
-                                  maxLength: 12,
+                                  maxLength: maxLengthOfPhoneNumber,
                                   maxLines: 1,
                                   decoration: InputDecoration(
-                                      counterText: '',
-                                      hintText: 'Phone number',
-                                      hintStyle: const TextStyle(color: Color(0xFFACACAC), fontWeight: FontWeight.w400),
+                                      counterText: "",
+                                      hintText: PHONE_NUMBER_KEY.tr(),
+                                      hintStyle: const TextStyle(
+                                          color: Color(0xFFACACAC), fontWeight: FontWeight.w400),
                                       enabledBorder: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(width: 1, color: isValidPhoneNumber ? const Color(0xFFE1E1E1) : Colors.red.shade200),
+                                        borderSide: BorderSide(
+                                            width: 1,
+                                            color: isValidPhoneNumber
+                                                ? const Color(0xFFE1E1E1)
+                                                : Colors.red.shade200),
                                         borderRadius: BorderRadius.circular(2),
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(width: 1, color: !isValidPhoneNumber ? Colors.red.shade200 : theme.primaryColor),
+                                        borderSide: BorderSide(
+                                            width: 1,
+                                            color: !isValidPhoneNumber
+                                                ? Colors.red.shade200
+                                                : theme.primaryColor),
                                         borderRadius: BorderRadius.circular(2),
                                       )),
                                 ),
                               ),
                               const SizedBox(height: 20),
                               MecarButton(
-                                  title: 'Next',
+                                  title: NEXT_KEY.tr(),
                                   onClickFunction: () {
-                                    if (RegExp(r'^(?:[+0]9)?[0-9]{10,12}$').hasMatch(textController.value.text)) {
-                                      userInfoBloc.add(UpdatePhoneNumberEvent(textController.value.text));
+                                    if (phoneNumberRegExp.hasMatch(textController.value.text)) {
+                                      userInfoBloc
+                                          .add(UpdatePhoneNumberEvent(textController.value.text));
                                       setState(() {
                                         isValidPhoneNumber = true;
                                       });
                                       Navigator.push(
                                         context,
-                                        MaterialPageRoute(builder: (context) => const VerificationScreen()),
+                                        MaterialPageRoute(
+                                            builder: (context) => const VerificationScreen()),
                                       );
                                     } else {
                                       setState(() {
@@ -114,7 +127,10 @@ class _SignUpPhoneScreenState extends State<SignUpPhoneScreen> {
                   Expanded(
                     flex: 1,
                     child: RowTextAction(
-                        colorTextAction: TextActionColor.login, textAction: 'Login', title: 'Already a member?', onClickFunction: () {}),
+                        colorTextAction: TextActionColor.login,
+                        textAction: LOGIN_KEY.tr(),
+                        title: ALREADY_MEMBER_KEY.tr(),
+                        onClickFunction: () {}),
                   ),
                 ],
               ),

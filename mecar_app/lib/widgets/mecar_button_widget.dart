@@ -7,8 +7,8 @@ enum ButtonType { login, verify, disableVerify }
 class MecarButton extends StatelessWidget {
   const MecarButton({Key? key, this.type = ButtonType.verify, required this.title, required this.onClickFunction}) : super(key: key);
 
-  final ButtonType? type;
   final String title;
+  final ButtonType? type;
   final VoidCallback onClickFunction;
 
   @override

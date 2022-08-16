@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
-var brightnesss = SchedulerBinding.instance.window.platformBrightness;
+final brightnesss = SchedulerBinding.instance.window.platformBrightness;
 
 class AppThemes {
   static final lightTheme = ThemeData(
@@ -17,4 +17,6 @@ class AppThemes {
   );
 }
 
-extension TNColorScheme on ColorScheme {}
+extension CustomColorScheme on ColorScheme {
+  Color get lightGrey => const Color(0xFFACACAC);
+}

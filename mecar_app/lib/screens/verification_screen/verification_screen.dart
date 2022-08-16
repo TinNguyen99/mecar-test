@@ -1,6 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mecar_app/blocs/user_info_blocs/user_info_bloc.dart';
+import 'package:mecar_app/constants/key_translate.dart';
+import 'package:mecar_app/themes/app_themes.dart';
 
 import 'package:mecar_app/widgets/countdown_otp.dart';
 import 'package:mecar_app/widgets/header_content_widget.dart';
@@ -20,6 +23,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
     final maxWidth = MediaQuery.of(context).size.width;
     final theme = Theme.of(context);
     final textEditingController = TextEditingController();
+    final lightGreyColor = theme.colorScheme.lightGrey;
+    const int timeOfCountdownOTP = 3;
 
     onClickFunction() {
       Navigator.pop(context);
@@ -36,16 +41,16 @@ class _VerificationScreenState extends State<VerificationScreen> {
               width: maxWidth,
               child: Column(
                 children: [
-                  HeaderContent(title: 'Verification', onClickFunction: onClickFunction),
+                  HeaderContent(title: VERIFICATION_KEY.tr(), onClickFunction: onClickFunction),
                   Padding(
                     padding: const EdgeInsets.only(left: 30, right: 30, top: 19, bottom: 40),
                     child: Text(
-                      'Please enter the 6 digit code that was sent to \n${state.phoneNumber}',
+                      '${ENTER_OTP_CODE_TITLE_KEY.tr()}${state.phoneNumber}',
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 113),
+                  SizedBox(
+                      width: maxWidth * 0.4,
                       child: PinCodeTextField(
                         appContext: context,
                         pastedTextStyle: const TextStyle(
@@ -57,12 +62,12 @@ class _VerificationScreenState extends State<VerificationScreen> {
                           textEditingController.clear();
                         },
                         pinTheme: PinTheme(
-                          inactiveColor: Color(0xFFACACAC),
-                          activeColor: Color(0xFFACACAC),
-                          selectedColor: Color(0xFFACACAC),
-                          activeFillColor: Color(0xFFACACAC),
-                          selectedFillColor: Color(0xFFACACAC),
-                          inactiveFillColor: Color(0xFFACACAC),
+                          inactiveColor: lightGreyColor,
+                          activeColor: lightGreyColor,
+                          selectedColor: lightGreyColor,
+                          activeFillColor: lightGreyColor,
+                          selectedFillColor: lightGreyColor,
+                          inactiveFillColor: lightGreyColor,
                           shape: PinCodeFieldShape.underline,
                           fieldHeight: 30,
                           fieldWidth: 20,
@@ -74,12 +79,12 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       )),
                   const SizedBox(height: 50),
                   MecarButton(
-                    title: 'Verify',
+                    title: VERIFY_KEY.tr(),
                     onClickFunction: () {},
                     type: ButtonType.verify,
                   ),
                   const SizedBox(height: 20),
-                  CountdownOTP(timeCountdown: 3)
+                  CountdownOTP(timeCountdown: timeOfCountdownOTP)
                 ],
               ),
             );

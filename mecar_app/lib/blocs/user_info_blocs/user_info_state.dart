@@ -4,7 +4,7 @@ class UserInfoState extends Equatable {
   final String phoneNumber;
 
   const UserInfoState({
-    this.phoneNumber = '',
+    this.phoneNumber = "",
   });
 
   UserInfoState update({String? phoneNumber}) {

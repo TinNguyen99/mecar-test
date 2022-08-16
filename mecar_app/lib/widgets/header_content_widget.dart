@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
-class HeaderContent extends StatelessWidget {
-  const HeaderContent({Key? key, required this.title, required this.onClickFunction}) : super(key: key);
+class HeaderContent extends StatefulWidget {
+  const HeaderContent({Key? key, required this.title, required this.onClickFunction})
+      : super(key: key);
 
   final String title;
   final VoidCallback onClickFunction;
 
+  @override
+  State<HeaderContent> createState() => _HeaderContentState();
+}
+
+class _HeaderContentState extends State<HeaderContent> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -16,7 +20,7 @@ class HeaderContent extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             InkWell(
-              onTap: onClickFunction,
+              onTap: widget.onClickFunction,
               child: const Padding(
                 padding: EdgeInsets.only(left: 24, top: 29),
                 child: Icon(
@@ -27,7 +31,7 @@ class HeaderContent extends StatelessWidget {
             ),
           ],
         ),
-        Text(title,
+        Text(widget.title,
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 28,

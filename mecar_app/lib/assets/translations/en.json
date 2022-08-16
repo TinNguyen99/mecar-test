@@ -1,8 +1,22 @@
 {
-    "Hello": "Hello",
-    "welcome": "Welcome",
-    "login_with_": "Login with Email/Phone",
-    "subcription_login": "You’re only a few step away from \n joining MeCar",
+    "acknowledge_their": "& acknowledge their",
+    "already_member": "Already a member?",
+    "by_register": "By register, I agree to Autoo’s",
+    "change_language": "Change language",
+    "change_themes": "Change themes",
+    "enter_otp_code_title": "Please enter the 6 digit code that was sent to\n",
+    "login": "Login",
+    "login_with_phone": "Login with Email/Phone",
+    "next": "Next",
     "not_have_account": "Don’t have account? ",
-    "sign_up": "Sign up"
+    "phone_number": "Phone number",
+    "privacy_policy": "privacy policy",
+    "resend_code": "Resend code ",
+    "setting": "Setting",
+    "sign_up": "Sign up",
+    "subcription_login": "You’re only a few step away from \n joining MeCar",
+    "term_of_use": "terms of use",
+    "verification": "Verification",
+    "verify": "Verify",
+    "welcome": "Welcome"
 }

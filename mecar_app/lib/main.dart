@@ -1,56 +1,43 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mecar_app/blocs/themes_blocs/themes_bloc.dart';
-import 'package:mecar_app/blocs/user_info_blocs/user_info_bloc.dart';
-import 'package:mecar_app/screens/login_screen/login_screen.dart';
-// import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:mecar_app/themes/app_themes.dart';
+import "dart:io";
+
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:mecar_app/blocs/themes_blocs/themes_bloc.dart";
+import "package:mecar_app/blocs/user_info_blocs/user_info_bloc.dart";
+import "package:mecar_app/screens/login_screen/login_screen.dart";
+import "package:easy_localization/easy_localization.dart";
+import "package:mecar_app/themes/app_themes.dart";
+import "package:shared_preferences/shared_preferences.dart";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  Locale currentLocale = Locale("en");
+  final prefs = await SharedPreferences.getInstance();
+  final String? currentLanguageStorage = prefs.getString("language");
+  final String? currentThemeStorage = prefs.getString("themes");
+
+  if (currentLanguageStorage != null) {
+    currentLocale = Locale(currentLanguageStorage);
+  } else {
+    final defaultLanguage = Platform.localeName.substring(0, 2);
+    currentLocale = Locale(defaultLanguage);
+  }
 
   runApp(EasyLocalization(
-      supportedLocales: [Locale('en'), Locale('vi')],
-      path: 'lib/assets/translations', // <-- change the path of the translation files
-      fallbackLocale: Locale('en', 'US'),
-      child: const MyApp()));
+      supportedLocales: [Locale("en"), Locale("vi")],
+      path: "lib/assets/translations",
+      fallbackLocale: currentLocale,
+      child: MyApp(themeStorage: currentThemeStorage)));
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+  const MyApp({Key? key, required this.themeStorage}) : super(key: key);
+  final String? themeStorage;
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
-// class _MyAppState extends State<MyApp> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocBuilder<ThemesBloc, ThemesState>(
-//       builder: (context, state) {
-//         ThemeMode dartModeString = state.themeMode;
-//         return MaterialApp(
-//             title: 'Flutter Demo',
-//             // themeMode: dartModeString,
-//             theme: AppThemes.lightTheme,
-//             darkTheme: AppThemes.darkTheme,
-//             localizationsDelegates: context.localizationDelegates,
-//             supportedLocales: context.supportedLocales,
-//             locale: context.locale,
-//             home: MultiBlocProvider(
-//               providers: [
-//                 BlocProvider<ThemesBloc>(
-//                   create: (BuildContext context) => ThemesBloc(),
-//                 ),
-//               ],
-//               child: const LoginScreen(),
-//             ));
-//       },
-//     );
-//   }
-// }
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
@@ -65,20 +52,18 @@ class _MyAppState extends State<MyApp> {
       ],
       child: BlocBuilder<ThemesBloc, ThemesState>(
         builder: (context, state) {
-          ThemeMode dartModeString = state.themeMode;
-          print(dartModeString);
+          final themesBloc = BlocProvider.of<ThemesBloc>(context);
+          themesBloc.add(InitialThemeEvent());
 
           return MaterialApp(
-            title: 'Flutter Demo',
-            themeMode: dartModeString,
+            title: "Flutter Demo",
+            themeMode: state.themeMode,
             theme: AppThemes.darkTheme,
             darkTheme: AppThemes.lightTheme,
-            // theme: AppThemes.lightTheme,
-            // darkTheme: AppThemes.darkTheme,
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,
-            home: const LoginScreen(),
+            home: LoginScreen(),
           );
         },
       ),
